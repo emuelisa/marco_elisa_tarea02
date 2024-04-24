@@ -1,0 +1,597 @@
+@charset "UTF-8";
+
+/* Import de letra custom de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
+
+/* Custom properties para medidas, tamaños de fuente y colores */
+:root {
+    /* Escala modular para tamaños de fuente */
+    --font-size-1: 1rem;
+    --font-size-2: 1.25rem;
+    --font-size-3: 2rem;
+    --font-size-4: 3rem;
+    --font-size-5: 6rem;
+    /* Escala modular para espaciado */
+    --spacing-1: 0.5rem;
+    --spacing-2: 1rem;
+    --spacing-3: 1.5rem;
+    --spacing-4: 2rem;
+    --spacing-5: 3rem;
+    /* Paleta de colores */
+    --color-primary: #d1b7ff;
+    --color-secondary: #EE7344;
+    --color-other: #E2E3E4;
+    --color-background: #FFFFF7;
+    --color-text: #0E0D0D;
+    --color-border: var(--color-text);
+  }
+
+/* Reset básico para quitar márgenes y paddings predeterminados */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+a,
+input,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 90vw;
+
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.6;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    
+
+    border-right: solid 2px #0E0D0D;
+    border-left: solid 2px #0E0D0D;
+}
+
+/* Otras clases */
+
+.bg01 {
+    background-color: var(--color-secondary);
+}
+
+.bg02 {
+    background-color: var(--color-background);
+}
+
+/* Estilos para el header y navegación */
+
+.header {
+    border-bottom: solid 2px #0E0D0D;
+    padding: var(--spacing-4);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav > div {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2)
+}
+
+.nav {
+    display: none;
+}
+
+.nav__item {
+    display: inline;
+    margin-right: var(--spacing-4);
+}
+
+.nav__link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 200;
+    transition: font-weight 0.3s;
+
+    text-transform: uppercase;
+
+    &:hover {
+        font-weight: 600;
+    }
+}
+
+.nav__link:not(:first-child) {
+    font-size: var(--font-size-3);
+    font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+    .nav {
+        display: flex;
+    }
+}
+
+
+/* Botones */
+
+button {
+    font-size: inherit;
+    padding: 0.5rem 2.5rem;
+    border: 2px solid var(--color-text);
+    box-shadow: 4px -4px 0 0 var(--color-text);
+
+    transition: box-shadow 0.3s ease;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 0 0 var(--color-text); 
+
+        transition: box-shadow 0.3s ease;
+    }
+}
+
+/* Estilos para la sección hero */
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-color: var(--color-primary);
+    padding: var(--spacing-4);
+    height: 70vh;
+    border-bottom: 2px solid var(--color-text);
+}
+  
+.hero__title {
+    font-size: var(--font-size-5);
+    font-weight: 400;
+}
+
+.hero__subtitle {
+    font-size: var(--font-size-3);
+    margin-bottom: 0;
+    font-weight: 200;
+}
+
+.slider-text { /* Animación */
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    h1 {
+        padding-right: 0.4em;
+    }
+}
+
+.slider-content { /* Tengo pendiente adaptar la animación para que sea responsive */
+    overflow: hidden;
+  
+    ul, li {
+        list-style: none;
+    }
+
+    ul {
+       width: 400px;
+       height: 130px;
+       position: relative;
+       animation: slide 7s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    }
+
+    li {
+        position: absolute;
+        height: 70px;
+        top: 100%;
+        line-height: 125px;
+        font-size: var(--font-size-5);
+        color: var(--color-background);
+
+        &:nth-child(2) {
+            top: 300%;
+        }
+
+        &:last-child {
+            top: 500%
+        }
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateY(0);
+    }
+
+    15%, 30% {
+        transform: translateY(-100%);
+    }
+
+    
+    45%, 60% {
+        transform: translateY(-300%);
+    }
+
+    75%, 90% {
+        transform: translateY(-500%);
+    }
+
+    100% {
+        transform: translateY(-700%);
+    }
+}
+
+/* Estilos para las secciones */
+
+.wrap {
+    margin: 0 auto;
+    padding: var(--spacing-5);
+}
+
+.products__title,
+.features__title,
+.pricing__title, 
+.testimonials__title {
+    font-size: var(--font-size-3);
+    margin-bottom: var(--spacing-4);
+    text-align: center;
+    padding:  var(--spacing-2) 0;
+}
+
+/* 1. PRODUCTOS */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-5);  
+}
+
+.img-wrap {
+    border: 2px solid var(--color-text);
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.product__image {
+    width:100%;
+    height: auto;
+    
+    object-fit: cover;
+    object-position: center;
+}
+
+.product__title {
+    padding-top: var(--spacing-2);
+    font-weight: 600;
+}
+
+.product__description {
+    padding-top: var(--spacing-1);
+    font-weight: 200;
+}
+
+
+/* 2. CARACTERÍSTICAS */
+
+.features.container {
+    display: flex;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+
+    gap: var(--spacing-5);
+}
+
+.feature {
+    max-width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    gap: var(--spacing-4);
+
+    &:nth-child(2) {
+        padding-top: var(--spacing-5);
+    }
+
+    &:nth-child(4) {
+        padding-top: var(--spacing-5);
+    }
+}
+
+.feature svg { /* Pendiente de configurar una animación diferente por cada SVG */
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        transform: rotate(60deg) scale(1.2);
+        transition: all 0.4s ease-in-out;
+    }
+}
+
+.feature__description {
+    padding-top: var(--spacing-2);
+    font-weight: 200;
+}
+
+
+
+/* 3. PRECIOS */
+
+/* Quiero conseguir que en hover de 2 se despliegue 2 a dos columnas y en hover de 3 se despliegue 3 a 2 columnas. 
+   Sin hover estará desplegado 1 a 2 columnas */
+
+.price-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.price-card {
+    border: 2px solid var(--color-text);
+    overflow: hidden;
+    padding: var(--spacing-4);
+}
+
+.price-info-wrap {
+    display: flex;
+    width: 64vw;
+    
+
+    p:first-child {
+        display:none;
+    }
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+
+    .price-card__description {
+        width: 90%;
+        font-weight: 200;
+    }
+
+    .price {
+        width: 40%;
+        text-align: center;
+        border: 2px solid var(--color-text);
+        border-radius: 20px;
+    }
+
+    button {
+        width: 90%;
+        align-self: center;
+    }
+}
+
+.price-card:nth-child(1) {
+    grid-column: 1 / 3;
+    background-color: var(--color-secondary);
+
+}
+
+.price-card:nth-child(2) {
+    grid-column: 3;
+    background-color: var(--color-primary);
+}
+
+.price-card:nth-child(3) {
+    grid-column: 4;
+    background-color: var(--color-other);
+}
+
+@media (min-width: 768px) {
+    .price-info {
+        gap: var(--spacing-2);
+
+        .price-card__description {
+            width: 60%;
+        }
+
+        .price {
+            width: 20%;
+        }
+
+        button {
+            width: 25%;
+            align-self: center;
+        }
+    }
+    
+
+    .price-info-wrap {
+        width: 800px;
+        
+        p:first-child {
+            display: block;
+            width: 40%;
+            font-size: var(--font-size-5);
+            font-weight: 700;
+            color: var(--color-background);
+    
+            -webkit-text-stroke-width: 2px; /* Ancho del borde */
+            -webkit-text-stroke-color: var(--color-text); /* Color del borde */
+            align-self: self-end;
+    
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .price-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+    }
+}
+
+/* 4. TESTIMONIOS */
+
+
+.testimonials {
+    background-color: var(--color-primary);
+    border-top: 2px solid var(--color-text);
+    padding: 0 var(--spacing-5);
+    padding-bottom: var(--spacing-5);
+}
+
+.testimonials-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonials-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-2) 0;
+}
+
+.testimonial {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-text);
+    padding: var(--spacing-3);
+    box-shadow: 0 0 0 var(--color-text);
+    text-align: left;
+    margin-right: var(--spacing-3);
+    flex: 0 0 auto;
+    max-width: 400px;
+    transition: transform 0.3s;
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 0 var(--color-text);
+    transition: box-shadow 0.2s ease;
+}
+
+.testimonial__image {
+    border: 2px solid var(--color-text);
+    border-radius: 80px;
+    margin-bottom: var(--spacing-3);
+}
+
+.testimonial__text {
+    font-weight: 200;
+}
+
+.testimonial__author {
+   font-weight: 500;
+}
+
+/* 5. CONTACTO */
+
+.contact {
+    background-color: var(--color-secondary);
+    border-top: 2px solid var(--color-text);
+    padding: var(--spacing-5);
+    
+    display: flex;
+
+    .container {
+        width: 100%;
+    }
+
+}
+
+.img-wp {
+    display: none;
+   
+    width: 40vw;
+    height: 70vh;
+    overflow: hidden;
+
+    border: 2px solid var(--color-text);
+
+    margin-right: var(--spacing-5);
+
+    img {
+        object-fit: cover;
+        object-position: bottom cenetr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .contact {
+        .container {
+            width: 60%;
+        }
+    }
+    .img-wp {
+        display: block;
+    }
+}
+
+.contact__title {
+    font-size: var(--font-size-3);
+    margin-bottom: var(--spacing-1);
+}
+
+.contact__description {
+    font-size: var(--font-size-2);
+    font-weight: 200;
+    margin-bottom: var(--spacing-2);
+}
+
+.contact-form {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.contact-form__label {
+    font-size: var(--font-size-1);
+    display: block;
+    margin-bottom: var(--spacing-1);
+}
+
+.contact-form__input,
+.contact-form__textarea {
+  width: 100%;
+  padding: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
+  border: 2px solid var(--color-border);
+}
+
+.contact-form__textarea {
+  resize: vertical;
+}
+
+/* FOOTER */
+
+
+.footer {
+    border-top: 2px solid var(--color-text);
+    padding: var(--spacing-4);
+    text-align: center;
+}
+
+.footer__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer__link:hover {
+    text-decoration: underline;
+  }
+
+
+  /* extra media */
+
