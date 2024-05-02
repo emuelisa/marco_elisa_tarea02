@@ -112,6 +112,27 @@ nav > div {
     gap: var(--spacing-2)
 }
 
+nav svg {
+    &:hover {
+        transform-origin: center;
+        
+        animation: rotate 0.8s linear ;
+        
+    }
+}
+
+@keyframes rotate {
+    0% {
+
+      transform: rotate(0deg);
+    }
+
+    100% {
+
+      transform: rotate(360deg) scale(1.2);
+    }
+}
+
 .nav {
     display: none;
 }
@@ -429,7 +450,7 @@ button {
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        transform: rotate(60deg) scale(1.2);
+        transform: scale(1.2);
         transition: all 0.4s ease-in-out;
     }
 }
@@ -623,6 +644,9 @@ input[type="radio"]:checked + label.price-card {
 }
 
 .testimonial {
+    display: flex;
+    flex-direction: row;
+
     background-color: var(--color-background);
     border: 2px solid var(--color-text);
     padding: var(--spacing-3);
@@ -641,17 +665,37 @@ input[type="radio"]:checked + label.price-card {
 }
 
 .testimonial__image {
+    max-width: 30%;
     border: 2px solid var(--color-text);
     border-radius: 80px;
-    margin-bottom: var(--spacing-3);
 }
 
 .testimonial__text {
     font-weight: 200;
+    margin-left: var(--spacing-3);
 }
 
 .testimonial__author {
    font-weight: 500;
+   margin-left: var(--spacing-3);
+}
+
+@media (min-width: 768px) {
+    .testimonial {
+        display: flex;
+        flex-direction: column;
+
+        max-width: 400px;
+    }
+
+    .testimonial__image {
+        margin-bottom: var(--spacing-3);
+    }
+
+    .testimonial__text, .testimonial__author {
+        margin-left: 0;
+    }
+    
 }
 
 /* 5. CONTACTO */
@@ -665,7 +709,7 @@ input[type="radio"]:checked + label.price-card {
 
     .container {
         width: 100%;
-    }
+    }  
 }
 
 .img-wp {
@@ -754,6 +798,8 @@ input[type="radio"]:checked + label.price-card {
 .footer__link:hover {
     text-decoration: underline;
 }
+
+
 
 
 
