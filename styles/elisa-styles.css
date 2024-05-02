@@ -24,9 +24,23 @@
     --color-background: #FFFFF7;
     --color-text: #0E0D0D;
     --color-border: var(--color-text);
-  }
+}
+
+/* Darkmode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #9383af;
+        --color-secondary: #cc653d;
+        --color-other: #7a7a7a;
+        --color-background:#2c264f;
+        --color-text: #FFFFF7;
+        --color-border: var(--color-text);
+    }
+}
 
 /* Reset básico para quitar márgenes y paddings predeterminados */
+
 body,
 h1,
 h2,
@@ -55,8 +69,8 @@ body {
     color: var(--color-text);
     
 
-    border-right: solid 2px #0E0D0D;
-    border-left: solid 2px #0E0D0D;
+    border-right: solid 2px var(--color-text);
+    border-left: solid 2px var(--color-text);
 }
 
 /* Otras clases */
@@ -69,11 +83,20 @@ body {
     background-color: var(--color-background);
 }
 
+.bg03 {
+    background-color: var(--color-primary);
+}
 /* Estilos para el header y navegación */
 
 .header {
-    border-bottom: solid 2px #0E0D0D;
-    padding: var(--spacing-4);
+    border-bottom: solid 2px var(--color-text);
+    padding: var(--spacing-3) 8vw;
+    position: fixed;
+    background-color: var(--color-background);
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 nav {
@@ -116,7 +139,28 @@ nav > div {
     font-weight: 700;
 }
 
+.menu-mobile {
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-text);
+    box-shadow: 4px -4px 0 0 var(--color-text);
+
+    margin-left: var(--spacing-1);
+
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0px 0px 0 0 var(--color-text); 
+
+        transition: box-shadow 0.3s ease;
+    }
+}
+
 @media (min-width: 1024px) {
+    /* Desaparece el menú desplegable y aparece la barra de navegación */
+    .menu-mobile { 
+        display: none;
+    }
+
     .nav {
         display: flex;
     }
@@ -155,23 +199,25 @@ button {
     padding: var(--spacing-4);
     height: 70vh;
     border-bottom: 2px solid var(--color-text);
+    margin-top: 100px;
 }
   
 .hero__title {
-    font-size: var(--font-size-5);
+    font-size: 3rem;
     font-weight: 400;
 }
 
 .hero__subtitle {
-    font-size: var(--font-size-3);
-    margin-bottom: 0;
+    font-size: var(--font-size-2);
+    margin-bottom: 0px;
     font-weight: 200;
 }
 
 .slider-text { /* Animación */
     display: flex;
+    flex-direction: column;
     justify-content: left;
-    align-items: center;
+    align-items: start;
 
     h1 {
         padding-right: 0.4em;
@@ -197,7 +243,7 @@ button {
         height: 70px;
         top: 100%;
         line-height: 125px;
-        font-size: var(--font-size-5);
+        font-size: 3rem;
         color: var(--color-background);
 
         &:nth-child(2) {
@@ -206,6 +252,46 @@ button {
 
         &:last-child {
             top: 500%
+        }
+    }
+}
+
+@media (min-width: 768px) {
+
+    .hero__subtitle {
+        font-size: var(--font-size-3);
+    }
+
+    .hero__title {
+        font-size: 5rem;
+    }
+
+    .slider-content { 
+    
+        li {
+            font-size: 5rem;
+        }
+    }
+}
+
+@media (min-width: 1216px) {
+    .slider-text { 
+    
+        flex-direction: row;
+        align-items: center;
+
+    } 
+}
+
+@media (min-width: 1408px) {
+    .hero__title {
+        font-size: var(--font-size-5);
+    }
+
+    .slider-content { 
+    
+        li {
+            font-size: var(--font-size-5);
         }
     }
 }
@@ -240,6 +326,12 @@ button {
     padding: var(--spacing-5);
 }
 
+@media(min-width: 1408px) {
+    .wrap {
+        padding: var(--spacing-5) 10vw;
+    }
+}
+
 .products__title,
 .features__title,
 .pricing__title, 
@@ -259,6 +351,7 @@ button {
 }
 
 .img-wrap {
+    position: relative;
     border: 2px solid var(--color-text);
     aspect-ratio: 1/1;
     overflow: hidden;
@@ -272,6 +365,24 @@ button {
     object-position: center;
 }
 
+.arrow {
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+
+    background-color: var(--color-background);
+    border: 2px solid var(--color-text);
+
+    transform: scale(1);
+
+    transition: all 0.4s ease;
+
+        &:hover {
+            transform: scale(1.2);
+            background-color: #EE7344;
+        }
+}
+
 .product__title {
     padding-top: var(--spacing-2);
     font-weight: 600;
@@ -281,7 +392,6 @@ button {
     padding-top: var(--spacing-1);
     font-weight: 200;
 }
-
 
 /* 2. CARACTERÍSTICAS */
 
@@ -333,40 +443,56 @@ button {
 
 /* 3. PRECIOS */
 
-/* Quiero conseguir que en hover de 2 se despliegue 2 a dos columnas y en hover de 3 se despliegue 3 a 2 columnas. 
-   Sin hover estará desplegado 1 a 2 columnas */
-
 .price-cards {
+    height: 150vh;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
     gap: var(--spacing-2);
 }
 
 .price-card {
-    border: 2px solid var(--color-text);
+    width: 100%;
+    height: 80%;
+    cursor: pointer;
     overflow: hidden;
-    padding: var(--spacing-4);
-}
-
-.price-info-wrap {
+    border: 2px solid var(--color-text);
+    margin: 0 0;
     display: flex;
-    width: 64vw;
-    
-
-    p:first-child {
-        display:none;
-    }
+    align-items: center;
+    transition: .6s cubic-bezier(0.28, -0.03, 0, 0.99);
 }
 
-.price-info {
+.price-card > .price-info-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.price-card > .price-info-wrap > .num {
+    width: 0 3%;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-background);
+
+    -webkit-text-stroke-width: 2px; /* Ancho del borde */
+    -webkit-text-stroke-color: var(--color-text); /* Color del borde */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3.4vw;
+}
+
+.price-card > .price-info-wrap > .price-info {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    justify-content: center;
+    overflow: hidden;
+    width: 80%;
+    height: 60%;
+    gap: var(--spacing-3);
 
-    .price-card__description {
-        width: 90%;
-        font-weight: 200;
-    }
 
     .price {
         width: 40%;
@@ -377,73 +503,104 @@ button {
 
     button {
         width: 90%;
-        align-self: center;
+        align-self: flex-start;
+        margin-top: var(--spacing-2);
     }
 }
 
-.price-card:nth-child(1) {
-    grid-column: 1 / 3;
-    background-color: var(--color-secondary);
-
+input[type="radio"] {
+    display: none; /* Hago que el círculo del radio button no se vea */
 }
 
-.price-card:nth-child(2) {
-    grid-column: 3;
+input[type="radio"]:checked + label.price-card {
+    width: 100%;
+}
+
+.price-card[for="c1"] {
+    background-color: var(--color-secondary);
+}
+
+.price-card[for="c2"] {
     background-color: var(--color-primary);
 }
 
-.price-card:nth-child(3) {
-    grid-column: 4;
+.price-card[for="c3"] {
     background-color: var(--color-other);
 }
 
 @media (min-width: 768px) {
-    .price-info {
-        gap: var(--spacing-2);
-
-        .price-card__description {
-            width: 60%;
-        }
-
-        .price {
-            width: 20%;
-        }
-
-        button {
-            width: 25%;
-            align-self: center;
-        }
+    .price-cards {
+        height: 120vh;
     }
-    
+    .price-card {
+        height: 40%;
+    }
 
-    .price-info-wrap {
-        width: 800px;
-        
-        p:first-child {
-            display: block;
-            width: 40%;
-            font-size: var(--font-size-5);
-            font-weight: 700;
-            color: var(--color-background);
+    .price-card > .price-info-wrap > .num {
+        font-size: 5rem;
+    }
+
+    .price-card > .price-info-wrap > .price-info {
+        .price {
+            width: 25%;
+        }
     
-            -webkit-text-stroke-width: 2px; /* Ancho del borde */
-            -webkit-text-stroke-color: var(--color-text); /* Color del borde */
-            align-self: self-end;
-    
+        button {
+            width: 15rem;
+            align-self: flex-end;
+            margin-top: 0;
         }
     }
 }
 
+ /* En desktop hay interacción y transición: Consigo ese efecto de seleccionar 
+    las tarjetas y que se desplieguen gracias a un input label del tipo radio button */
+
 @media (min-width: 1024px) {
     .price-cards {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        height: 300px;
+        flex-direction: row;
+        gap: 0;
+    }
 
+    .price-card {
+        width: 11vw;
+        height: 35vh;
+        margin: 0 var(--spacing-1);
+    }
+
+    .price-card > .price-info-wrap {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    
+    .price-card > .price-info-wrap > .price-info {
+        width: 70%;
+        height: 200px;
+        gap: var(--spacing-1);
+
+        opacity: 0;
+        transform: translateY(100%);
+        transition-delay: 0.3s;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    
+        .price {
+            width: 28%;
+        }
+    }
+    
+    input:checked + label { 
+        width: 70%;
+    }
+    
+    input:checked + label .price-info { /* Perdón por poner !important pero si no no me funcionaba :( */
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 }
 
 /* 4. TESTIMONIOS */
-
 
 .testimonials {
     background-color: var(--color-primary);
@@ -509,35 +666,42 @@ button {
     .container {
         width: 100%;
     }
-
 }
 
 .img-wp {
-    display: none;
-   
-    width: 40vw;
-    height: 70vh;
-    overflow: hidden;
-
-    border: 2px solid var(--color-text);
-
-    margin-right: var(--spacing-5);
-
-    img {
-        object-fit: cover;
-        object-position: bottom cenetr;
-    }
+    display: none; 
 }
 
 @media (min-width: 1024px) {
     .contact {
+        max-height: 65vh;
+        display: flex;
+        flex-wrap: nowrap; 
+        
+        gap: var(--spacing-5);
+        
         .container {
+            flex: 1;
             width: 60%;
+            align-self: center;
+        }
+
+        .img-wp {
+            max-height: 1120px;
+            flex: 1;
+            display: block;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+           
+            border: 2px solid var(--color-text);
+
+            img {
+                object-fit: cover;
+                object-position: bottom center;
+            }
         }
     }
-    .img-wp {
-        display: block;
-    }
+   
 }
 
 .contact__title {
@@ -576,7 +740,6 @@ button {
 
 /* FOOTER */
 
-
 .footer {
     border-top: 2px solid var(--color-text);
     padding: var(--spacing-4);
@@ -590,8 +753,7 @@ button {
 
 .footer__link:hover {
     text-decoration: underline;
-  }
+}
 
 
-  /* extra media */
 
